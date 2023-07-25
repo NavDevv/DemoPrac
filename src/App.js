@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+npimport logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -12,11 +12,9 @@ function App() {
         <label>Symbol</label><br />
         <input type="text" name="Symbol" placeholder="Symbol" required /><br />
         <label>Description</label><br />
-        <input type="text" name="Des"
-          placeholder="Description" required /><br />
+        <input type="text" name="Des" placeholder="Description" required /><br />
         <label>Price</label><br />
-        <input type="number" name="Price"
-          placeholder="e.g 0.1, 0.01, 0.001" required /><br />
+        <input type="number" name="Price" placeholder="e.g 0.1, 0.01, 0.001" required /><br />
         <label>Wallet Address</label><br />
         <input type="url" name="WAddress" placeholder="Put your wallet address" required /><br />
         <label>Preset Royalty</label><br />
