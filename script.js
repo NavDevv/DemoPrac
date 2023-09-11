@@ -150,9 +150,10 @@ function getBook(id) {
 // title;
 // const author = books.author
 // author;
+const book = getBook(1)
+book;
 
-
-const { title, author, publicationDate, pages, genres, hasMovieAdaptation } = getBook(2)
+const { title, author, publicationDate, pages, genres, hasMovieAdaptation } = getBook(1)
 title
 author
 publicationDate
@@ -160,10 +161,25 @@ pages
 genres
 hasMovieAdaptation
 
-// destructuring 
-const [primaryGenre, secondaryGenre] = genres
-console.log(`1st:${primaryGenre} 2nd:${secondaryGenre}`)
+// destructuring and the Rest Operator          
+const [primaryGenre, secondaryGenre, ...otherGenre] = genres
+console.log(`1st:${primaryGenre} 2nd:${secondaryGenre} 3rd: ${otherGenre}`)
 
 // The spread Opertator
-const [...AlltheGenre] = genres;
-console.log(AlltheGenre)
+const newGenre = [...genres, "Sci-fi"]
+newGenre
+
+// the spread operator on the object
+const updatedBook = {
+  ...book,
+  // Adding a new property to the object
+  moviePublicationDate: "2001-12-19",
+  // updating or changing or overwriting the property
+  pages: 1210
+}
+updatedBook
+
+// Template literals 
+const summary = `${title}, a ${pages}-page long book, was written by ${author} and published in ${publicationDate.split('-')[0]}`
+
+summary;
