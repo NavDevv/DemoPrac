@@ -183,3 +183,6 @@ updatedBook
 const summary = `${title}, a ${pages}-page long book, was written by ${author} and published in ${publicationDate.split('-')[0]}`
 
 summary;
+
+// Ternaries - revised {Replacing if-elese statments }
+pages > 1000 ? "Over a thousand" : "Less than the thousand"
