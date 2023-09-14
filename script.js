@@ -234,6 +234,7 @@ console.log(getTotalReviewCount(book)) */
 
 // Map Array method 
 
+/*
 const books = getBooks();
 books;
 console.log(books[1].title)
@@ -258,3 +259,43 @@ const essentialData = books.map((book) => ({
 }));
 
 essentialData;
+
+// Filter array method 
+const longBooks = books.filter((book) =>book.pages > 500).filter((book) => book.hasMovieAdaptation)
+longBooks
+
+const adventureBooks = books.filter(book => book.genres.includes('adventure')).map(book => book.title)
+adventureBooks
+
+// Reduce array method - goes iteration by iteration 
+const pagesAllBooks = books.reduce((sum, book) => book.pages + sum, 0)
+pagesAllBooks;
+
+//  sort array method 
+const y = [3,4,6,2,8];
+const sorted = y.slice().sort((a,b) => a-b);
+sorted
+y;
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages).map(book => book.pages)
+sortedByPages;
+
+// add, delete and update arrays 
+
+// add a book object to the array
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  author: "J. K. Rowling"
+}
+const booksAfterAdd = [...books, newBook]
+booksAfterAdd
+
+// Delete a book from the array
+const booksAfterDelete = booksAfterAdd.filter(book => book.id !== 3)
+booksAfterDelete;
+
+// Update the object in the array
+
+const booksAfterUpdate = booksAfterDelete.map(book => book.id === 1 ? {...book, pages:3000} : book)
+booksAfterUpdate */
