@@ -47,29 +47,73 @@ const pizzaData = [
   },
 ];
 
-
 function App() {
-  
-  return <div>
-     <h1>Hello React!!!!</h1> 
-     <Pizza></Pizza>
-     <Pizza></Pizza>
-  </div>
+  return (
+    <div>
+      <Header></Header>
+      <Menu></Menu>
+      <Footer></Footer>
+    </div>
+  );
 }
 
-function Pizza(){
-   return (
+function Header() {
+  return (
+    <div>
+      <h1>Fast React Pizza Co.</h1>
+    </div>
+  );
+}
+
+function Menu() {
+  return (
+    <div>
+      <h2>Our Menu</h2>
+      <Pizza></Pizza>
+    </div>
+  );
+}
+
+function Footer() {
+  const date = new Date().toLocaleDateString();
+  const hours = new Date().getHours();
+  console.log(hours);
+
+  const timmings = {
+    oHours: 12,
+    cHours: 22,
+  };
+  const open = hours >= timmings.oHours && hours <= timmings.cHours;
+  console.log(open);
+
+  // if (hours >= timmings.oHours && hours <= timmings.cHours)
+  //   alert(`We are currently open`);
+  // else alert(`Sorry we're closed!`);
+
+  return (
+    <div>
+      <footer>{date} We're Currently Open</footer>
+    </div>
+  );
+  //return React.createElement('footer', null, `We're Currentluy Open`)
+}
+
+function Pizza() {
+  return (
     <div>
       <h2>Pizza Spinaci</h2>
       <p>Tomato, mozarella, spinach, and ricotta cheese</p>
       <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci"></img>
     </div>
-   )
+  );
 }
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<React.StrictMode><App /></React.StrictMode>)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 // To render the projects that used old react versions use this ->
 // React.render(<App />, document.getElementById("root"))
