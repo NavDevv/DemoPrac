@@ -49,7 +49,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header></Header>
       <Menu></Menu>
       <Footer></Footer>
@@ -59,26 +59,61 @@ function App() {
 
 function Header() {
   return (
-    <div>
-      <h1>Fast React Pizza Co.</h1>
-    </div>
+    <header className="header">
+      <h1 style={{ color: "red", textTransform: "uppercase" }}>
+        Fast React Pizza Co.
+      </h1>
+    </header>
   );
 }
 
 function Menu() {
+  const pizzaAval = pizzaData;
+
   return (
-    <div>
+    <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza></Pizza>
-    </div>
+      {pizzaAval > 0 && (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
+
+      {/* <Pizza
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach, and
+        ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      ></Pizza>
+      <Pizza
+        name="Pizza Funghi"
+        ingredients="Tomato, Mushroom"
+        price={12}
+        photoName="pizzas/funghi.jpg"
+      ></Pizza> */}
+    </main>
+  );
+}
+
+function Pizza(props) {
+  return (
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.name}></img>
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
+      </div>
+    </li>
   );
 }
 
 function Footer() {
-  const date = new Date().toLocaleDateString();
   const hours = new Date().getHours();
   console.log(hours);
-
   const timmings = {
     oHours: 12,
     cHours: 22,
@@ -89,23 +124,22 @@ function Footer() {
   // if (hours >= timmings.oHours && hours <= timmings.cHours)
   //   alert(`We are currently open`);
   // else alert(`Sorry we're closed!`);
-
   return (
-    <div>
-      <footer>{date} We're Currently Open</footer>
+    <div className="footer">
+      <footer style={{ fontWeight: "12px" }}>
+        {open && (
+          <div className="order">
+            <p>
+              We're open until {timmings.cHours}:00. Come visit us or Order
+              online.
+            </p>
+            <button className="btn">Order</button>
+          </div>
+        )}
+      </footer>
     </div>
   );
   //return React.createElement('footer', null, `We're Currentluy Open`)
-}
-
-function Pizza() {
-  return (
-    <div>
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci"></img>
-    </div>
-  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
