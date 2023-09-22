@@ -69,16 +69,19 @@ function Header() {
 
 function Menu() {
   const pizzaAval = pizzaData;
+  const numPizza = pizzaAval.length;
 
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      {pizzaAval > 0 && (
+      {numPizza > 0 ? (
         <ul className="pizzas">
           {pizzaData.map((pizza) => (
             <Pizza pizzaObj={pizza} key={pizza.name} />
           ))}
         </ul>
+      ) : (
+        <p>We're still working on the menu. Please come back later</p>
       )}
 
       {/* <Pizza
@@ -99,6 +102,8 @@ function Menu() {
 }
 
 function Pizza(props) {
+  //if (props.pizzaObj.soldOut) return null;
+
   return (
     <li className="pizza">
       <img src={props.pizzaObj.photoName} alt={props.name}></img>
@@ -118,28 +123,34 @@ function Footer() {
     oHours: 12,
     cHours: 22,
   };
-  const open = hours >= timmings.oHours && hours <= timmings.cHours;
+  const open = hours > timmings.oHours && hours < timmings.cHours;
   console.log(open);
 
   // if (hours >= timmings.oHours && hours <= timmings.cHours)
   //   alert(`We are currently open`);
   // else alert(`Sorry we're closed!`);
   return (
-    <div className="footer">
-      <footer style={{ fontWeight: "12px" }}>
-        {open && (
-          <div className="order">
-            <p>
-              We're open until {timmings.cHours}:00. Come visit us or Order
-              online.
-            </p>
-            <button className="btn">Order</button>
-          </div>
-        )}
-      </footer>
-    </div>
+    <footer className="footer">
+      {open ? (
+        <Order cHours={timmings.cHours}></Order>
+      ) : (
+        <p>
+          Sorry we're closed right now come back between {timmings.oHours}:00
+          and {timmings.cHours}:00.
+        </p>
+      )}
+    </footer>
   );
   //return React.createElement('footer', null, `We're Currentluy Open`)
+}
+
+function Order(props) {
+  return (
+    <div className="order">
+      <p>We're open until {props.cHours}:00. Come visit us or Order online.</p>
+      <button className="btn">Order</button>
+    </div>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
