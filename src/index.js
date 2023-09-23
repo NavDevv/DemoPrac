@@ -75,7 +75,7 @@ function Menu() {
     <main className="menu">
       <h2>Our Menu</h2>
 
-      {numPizza < 0 ? (
+      {numPizza > 0 ? (
         <>
           <p>
             Authentic Italian cuisine. 6 creative dishes to choose from. All
@@ -112,12 +112,16 @@ function Pizza({ pizzaObj }) {
   //if (props.pizzaObj.soldOut) return null;
 
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        {pizzaObj.soldOut}
+
+        <span style={{ textTransform: "uppercase" }}>
+          {pizzaObj.soldOut ? "Sold Out" : pizzaObj.price}
+        </span>
       </div>
     </li>
   );
