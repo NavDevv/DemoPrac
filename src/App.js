@@ -5,11 +5,14 @@ function App() {
 }
 
 function Step() {
+  //States and updating States
+  // Date Features - copied from the net
   let [step, setStep] = useState(1);
   let [count, setCount] = useState(0);
   let date = new Date("Oct 1 2023");
   date.setDate(date.getDate() + count);
 
+  // Functions for the adding and subtraction
   function StepInc() {
     setStep(step + 1);
   }
@@ -25,6 +28,7 @@ function Step() {
   }
 
   return (
+    // adding the buttons and putting onClick Props
     <div>
       <button onClick={StepInc}>+</button>
       <span>Step: {step}</span>
@@ -35,6 +39,7 @@ function Step() {
       <button onClick={CountDec}>-</button>
       <br />
       <span>
+        {/* Printing the changed date according to the count state */}
         {count >= 1
           ? `${count} days from today is ${date.toDateString()}`
           : `${count} days ago was  ${date.toDateString()}`}
