@@ -13,37 +13,45 @@ function Step() {
   date.setDate(date.getDate() + count);
 
   // Functions for the adding and subtraction
-  function StepInc() {
-    setStep(step + 1);
-  }
-  function StepDec() {
-    setStep(step - 1);
-  }
-
   function CountInc() {
     setCount((c) => c + step);
   }
   function CountDec() {
     setCount((c) => c - step);
   }
+  function ClickHandler() {
+    setStep(1);
+    setCount(0);
+  }
 
   return (
     // adding the buttons and putting onClick Props
     <div>
-      <button onClick={StepInc}>+</button>
-      <span>Step: {step}</span>
-      <button onClick={StepDec}>-</button>
-      <br></br>
+      <input
+        type="range"
+        min={1}
+        max={10}
+        value={step}
+        onChange={(e) => setStep(Number(e.target.value))}
+      ></input>
+      <p>{step}</p>
       <button onClick={CountInc}>+</button>
-      <span>Count: {count}</span>
+      <input
+        type="text"
+        value={count}
+        onChange={(e) => setCount(Number(e.target.value))}
+      ></input>
       <button onClick={CountDec}>-</button>
-      <br />
+      <br></br>
+
       <span>
         {/* Printing the changed date according to the count state */}
         {count >= 1
           ? `${count} days from today is ${date.toDateString()}`
           : `${count} days ago was  ${date.toDateString()}`}
       </span>
+      <br></br>
+      <button onClick={ClickHandler}>Reset</button>
     </div>
   );
 }
