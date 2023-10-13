@@ -1,22 +1,20 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: true },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-];
-
 function App() {
   const [items, setItems] = useState([]);
 
-  function handleItems(item){
-    setItems(items => [...items, item])
+  function handleItems(item) {
+    setItems((items) => [...items, item]);
   }
 
+  function removeItems(id) {
+    setItems((items) => items.filter((item) => item.id !== id));
+  }
   return (
     <div className="app">
       <Logo />
-      <Form onAddItems = {handleItems}/>
-      <PackingList items = {items} />
+      <Form onAddItems={handleItems} />
+      <PackingList items={items} onDelete={removeItems} />
       <Stats />
     </div>
   );
@@ -29,7 +27,7 @@ function Logo() {
     </div>
   );
 }
-function Form({onAddItems}) {
+function Form({ onAddItems }) {
   let [description, SetDescription] = useState("");
   let [quantity, setQuantity] = useState(1);
 
@@ -41,8 +39,6 @@ function Form({onAddItems}) {
     setQuantity(1);
     onAddItems(newItem);
   }
-
- 
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -65,32 +61,25 @@ function Form({onAddItems}) {
     </form>
   );
 }
-function PackingList({items}) {
+function PackingList({ items, onDelete }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item item={item} key={item.id} onDelete={onDelete} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
-
-  function removeItems(){
-    if(true){
-    item= false;
-    }
-  }
+function Item({ item, onDelete }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity}
-        {item.description}
+        {item.quantity} {item.description}
       </span>
-      <button onClick={removeItems}>X</button>
+      <button onClick={() => onDelete(item.id)}>X</button>
     </li>
   );
 }
