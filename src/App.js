@@ -28,7 +28,7 @@ function App() {
         onDelete={removeItems}
         onToggle={updateItems}
       />
-      <Stats handleItems={handleItems} />
+      <Stats totalItems={items} />
     </div>
   );
 }
@@ -109,10 +109,25 @@ function Item({ item, onDelete, ontoggle }) {
   );
 }
 
-function Stats() {
+function Stats({ totalItems }) {
+  if (!totalItems.length)
+    return (
+      <p className="stats">
+        <em>You have not packed anything yet, Start packing </em>
+      </p>
+    );
+
+  const tItems = totalItems.length;
+  const packed = totalItems.filter((item) => item.packed).length;
+  const packedPerc = Math.round((packed / tItems) * 100);
   return (
     <footer className="stats">
-      <em>You have X items on your list, and you have already packed X (X%)</em>
+      <em>
+        {packedPerc === 100
+          ? "You got everything! Ready to go"
+          : `You have ${tItems} items on your list, and you have already packed
+        ${packed} (${packedPerc}%)`}
+      </em>
     </footer>
   );
 }
