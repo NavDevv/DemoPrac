@@ -22,13 +22,13 @@ function App() {
   return (
     <div className="app">
       <Logo />
-      <Form onAddItems={handleItems} />
+      <Form handleItems={handleItems} />
       <PackingList
         items={items}
-        onDelete={removeItems}
-        onToggle={updateItems}
+        removeItems={removeItems}
+        updateItems={updateItems}
       />
-      <Stats totalItems={items} />
+      <Stats items={items} />
     </div>
   );
 }
@@ -40,7 +40,7 @@ function Logo() {
     </div>
   );
 }
-function Form({ onAddItems }) {
+function Form({ handleItems }) {
   let [description, SetDescription] = useState("");
   let [quantity, setQuantity] = useState(1);
 
@@ -48,7 +48,7 @@ function Form({ onAddItems }) {
     e.preventDefault();
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
-    onAddItems(newItem);
+    handleItems(newItem);
     SetDescription("");
     setQuantity(1);
   }
@@ -74,15 +74,15 @@ function Form({ onAddItems }) {
     </form>
   );
 }
-function PackingList({ items, onDelete, onToggle }) {
+function PackingList({ items, removeItems, updateItems }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => (
           <Item
             item={item}
-            onDelete={onDelete}
-            ontoggle={onToggle}
+            removeItems={removeItems}
+            ontoggle={updateItems}
             key={item.id}
           />
         ))}
@@ -91,7 +91,7 @@ function PackingList({ items, onDelete, onToggle }) {
   );
 }
 
-function Item({ item, onDelete, ontoggle }) {
+function Item({ item, removeItems, ontoggle }) {
   return (
     <li>
       <input
@@ -104,21 +104,21 @@ function Item({ item, onDelete, ontoggle }) {
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button onClick={() => onDelete(item.id)}>X</button>
+      <button onClick={() => removeItems(item.id)}>X</button>
     </li>
   );
 }
 
-function Stats({ totalItems }) {
-  if (!totalItems.length)
+function Stats({ items }) {
+  if (!items.length)
     return (
       <p className="stats">
         <em>You have not packed anything yet, Start packing </em>
       </p>
     );
 
-  const tItems = totalItems.length;
-  const packed = totalItems.filter((item) => item.packed).length;
+  const tItems = items.length;
+  const packed = items.filter((item) => item.packed).length;
   const packedPerc = Math.round((packed / tItems) * 100);
   return (
     <footer className="stats">
