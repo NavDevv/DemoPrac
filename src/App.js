@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import Bill from "./Components/Bill";
+import TipCalculator from "./Components/tipCalculator";
+import FriendTipCalc from "./Components/friendTipCalc";
+import { useState } from "react";
 
 function App() {
+  const [amount, setAmount] = useState(0);
+  const [tip, setTip] = useState(0);
+  const [tip1, setTip1] = useState(0);
+
+  function reset() {
+    setAmount(0);
+    setTip(0);
+    setTip1(0);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Bill amount={amount} setAmount={setAmount} />
+      <TipCalculator tip={tip} setTip={setTip} />
+      <FriendTipCalc tip1={tip1} setTip1={setTip1} />
+      <DisplayMessage amount={amount} tip={tip} tip1={tip1} />
+      <br></br>
+      <button onClick={reset}>reset</button>
+    </div>
+  );
+}
+
+function DisplayMessage({ amount, tip, tip1 }) {
+  const calcTip = (amount * tip) / 100;
+  const calctip1 = (amount * tip1) / 100;
+  const finalTip = (calcTip + calctip1) / 2;
+  const total = finalTip + amount;
+  return (
+    <div>
+      <h3>
+        You Pay ${total} (${amount} + ${finalTip} tip)
+      </h3>
     </div>
   );
 }
