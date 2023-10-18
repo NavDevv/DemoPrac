@@ -26,19 +26,27 @@ const faqs = [
 ];
 
 function Accordion({ data }) {
+  const [curOpen, setCurOpen] = useState(null);
   return (
     <div className="accordion">
       {data.map((e, i) => (
-        <AccordionItem title={e.title} text={e.text} num={i} />
+        <AccordionItem
+          title={e.title}
+          text={e.text}
+          num={i}
+          key={e.title}
+          curOpen={curOpen}
+          onOpen={setCurOpen}
+        />
       ))}
     </div>
   );
 }
 
-function AccordionItem({ num, title, text }) {
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItem({ num, title, text, curOpen, onOpen }) {
+  const isOpen = num === curOpen;
   function handleClick() {
-    setIsOpen((isOpen) => !isOpen);
+    onOpen(num);
   }
   return (
     <div className={`item ${isOpen ? "open" : ""}`} onClick={handleClick}>
