@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 
 function App() {
   return (
@@ -32,18 +32,19 @@ function Accordion({ data }) {
       {data.map((e, i) => (
         <AccordionItem
           title={e.title}
-          text={e.text}
           num={i}
           key={e.title}
           curOpen={curOpen}
           onOpen={setCurOpen}
-        />
+        >
+          {e.text}
+        </AccordionItem>
       ))}
     </div>
   );
 }
 
-function AccordionItem({ num, title, text, curOpen, onOpen }) {
+function AccordionItem({ num, title, curOpen, onOpen, children }) {
   const isOpen = num === curOpen;
   function handleClick() {
     onOpen(num);
@@ -55,7 +56,7 @@ function AccordionItem({ num, title, text, curOpen, onOpen }) {
         {title}
       </p>
       <p className="icon">{isOpen ? `-` : `+`}</p>
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 }
