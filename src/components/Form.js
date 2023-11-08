@@ -1,8 +1,10 @@
 import { useState } from "react";
 
 export default function Form({ selectedFriend, list, setList }) {
+  // Ref from the friendList.js
   const name = selectedFriend?.name;
   const id = selectedFriend?.id;
+  // States
   const [bill, setBill] = useState();
   const [paidBy, setPaidBy] = useState();
   const [whoPaid, setWhoPaid] = useState("Me");

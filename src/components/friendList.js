@@ -3,15 +3,18 @@ import Form from "./Form";
 import "./friendList.css";
 
 export default function FriendList({ friends }) {
+  // states
   const [open, setOpen] = useState(false);
   const [addFriend, setAddFriend] = useState(false);
   const [list, setList] = useState(friends);
   const [selectedFriend, setSelectedFriend] = useState(null);
 
+  // Handling the frined list and chnaging the friends array , data recieved from the function in AddFriend Component
   function handleFriendList(friend) {
     setList((friends) => [...friends, friend]);
   }
 
+  // handling the selected friend in refrence to the Form
   function handleSelectedFriend(friend) {
     setSelectedFriend((selected) =>
       selected?.id === friend.id ? null : friend
@@ -45,6 +48,7 @@ export default function FriendList({ friends }) {
               className="btn"
               onClick={() => handleSelectedFriend(friends)}
             >
+              {/* Null value for the state - passed into the form */}
               {selectedFriend?.id === friends.id ? "Close" : "Select"}
             </button>
           </li>
@@ -76,6 +80,7 @@ function AddFriend({ handleFriendList }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48?u=118837");
 
+  // Updating function for updating the friend list with the adding of the new friend
   function updateFriendList(e) {
     e.preventDefault();
     const newFriends = {
@@ -84,6 +89,7 @@ function AddFriend({ handleFriendList }) {
       image,
       balance: 0,
     };
+    // Data for the new array passed to the function as a argument
     handleFriendList(newFriends);
     setName("");
   }
